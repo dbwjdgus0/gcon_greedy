@@ -19,20 +19,25 @@ class aknng:
         self.adj = [[] for _ in self.vectors]
         self.num_edges = 0
 
+        self.successed = []
+
         self.construct()
 
 
 
     def construct(self):
 
-        for it in range(10000):
+        for it in range(1001):
             acc_num_succ = 0
             for _ in range(1):
                 num_succ = 0
                 for q, qvec in enumerate(self.vectors):
+                    if q in self.successed:
+                        continue
                     a = self.greedy_search(qvec, random.randint(0, len(self.vectors) - 1))
                     if a != q:
                         self.adj[a].append([q, 1])
+                        self.successed.append(q)
                         self.num_edges += 1
                     else:
                         num_succ += 1
